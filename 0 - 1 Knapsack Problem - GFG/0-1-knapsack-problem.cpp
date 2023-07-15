@@ -7,22 +7,20 @@ using namespace std;
 class Solution
 {
     public:
-    int func(int ind,int w,int wt[],int val[],vector<vector<int>> &dp){
-        if(ind==0){
-            if(wt[0]<=w)return val[ind];
-            return 0;
-        }
-        if(dp[ind][w]!=-1)return dp[ind][w];
-        int notTake=0+func(ind-1,w,wt,val,dp);
-        int take=0;
-        if(wt[ind]<=w)take=val[ind]+func(ind-1,w-wt[ind],wt,val,dp);
-        return dp[ind][w]=max(take,notTake);
-    }
     //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-        vector<vector<int>> dp(n,vector<int>(W+1,-1));
-        return func(n-1,W,wt,val,dp);
+        vector<vector<int>> dp(n,vector<int>(W+1,0));
+        for(int i=wt[0];i<=W;i++)dp[0][i]=val[0];
+        for(int i=1;i<n;i++){
+            for(int w=0;w<=W;w++){
+                int notTake=0+dp[i-1][w];
+                int take=0;
+                if(wt[i]<=w)take=val[i]+dp[i-1][w-wt[i]];
+                dp[i][w]=max(take,notTake);
+            }
+        }
+        return dp[n-1][W];
        // Your code here
     }
 };
