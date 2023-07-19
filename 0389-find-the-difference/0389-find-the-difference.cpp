@@ -5,11 +5,9 @@ public:
         sort(t.begin(),t.end());
         char c;
         int n=s.length();
-        bool flag=true;
         for(int i=0;i<n;i++){
             if(s[i]==t[i])continue;
             else{
-                flag=false;
                 return t[i];
             }
         }
